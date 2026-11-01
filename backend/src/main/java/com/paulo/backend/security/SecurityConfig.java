@@ -1,9 +1,11 @@
 package com.paulo.backend.security;
 
+import com.paulo.backend.dtos.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
 import org.springframework.http.HttpMethod;
+import org.springframework.http.MediaType;
 import org.springframework.security.config.Customizer;
 import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configurers.AbstractHttpConfigurer;
@@ -11,6 +13,7 @@ import org.springframework.security.config.http.SessionCreationPolicy;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.security.web.SecurityFilterChain;
+import tools.jackson.databind.json.JsonMapper;
 
 @Configuration
 public class SecurityConfig {
@@ -21,7 +24,9 @@ public class SecurityConfig {
 
     @Bean
     public SecurityFilterChain securityFilterChain(
-            HttpSecurity http
+            HttpSecurity http,
+            NaoAutenticadoHandler naoAutenticadoHandler,
+            JsonMapper jsonMapper
     ) throws Exception {
         http
                 // Proteção para operações autenticadas por cookie
@@ -73,10 +78,18 @@ public class SecurityConfig {
                         ).hasAuthority("ADMIN")
 
                         .requestMatchers(
+                                HttpMethod.GET,
+                                "/usuario/all-user",
+                                "/usuario/find-user"
+
+                        ).hasAuthority("ADMIN")
+
+
+
+                        .requestMatchers(
                                 "/usuario/user",
                                 "/usuario/admin")
                         .hasAuthority("ADMIN")
-
                         .anyRequest().authenticated()
                 )
 
@@ -91,11 +104,18 @@ public class SecurityConfig {
                                 )
                         )
 
-                        .failureHandler((request, response, exception) ->
-                                response.setStatus(
-                                        HttpServletResponse.SC_UNAUTHORIZED
-                                )
-                        )
+                        .failureHandler((request, response, exception) -> {
+                            response.setStatus(HttpServletResponse.SC_UNAUTHORIZED);
+                            response.setContentType(MediaType.APPLICATION_JSON_VALUE);
+                            response.setCharacterEncoding("UTF-8");
+
+                            ApiResponse<Void> resposta = ApiResponse.erro(
+                                    "Usuário ou senha inválidos",
+                                    null
+                            );
+
+                            jsonMapper.writeValue(response.getWriter(), resposta);
+                        })
                 )
 
                 .logout(logout -> logout
@@ -114,17 +134,12 @@ public class SecurityConfig {
 
                 .httpBasic(AbstractHttpConfigurer::disable)
                 .exceptionHandling(exceptions -> exceptions
-                        .authenticationEntryPoint(
-                                (request, response, exception) ->
-                                        response.setStatus(
-                                                HttpServletResponse.SC_UNAUTHORIZED
-                                        )
-                        )
-                        .accessDeniedHandler(
-                                (request, response, exception) ->
-                                        response.setStatus(
-                                                HttpServletResponse.SC_FORBIDDEN
-                                        )
+                        .authenticationEntryPoint(naoAutenticadoHandler)
+
+                        .accessDeniedHandler((request, response, exception) ->
+                                response.setStatus(
+                                        HttpServletResponse.SC_FORBIDDEN
+                                )
                         )
                 );
 
