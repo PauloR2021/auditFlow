@@ -1,6 +1,7 @@
 package com.paulo.backend.controller;
 
 import com.paulo.backend.dtos.ApiResponse;
+import com.paulo.backend.dtos.FindUsuarioRequest;
 import com.paulo.backend.dtos.UsuarioRequest;
 import com.paulo.backend.dtos.UsuarioResponse;
 import com.paulo.backend.service.UsuarioService;
@@ -9,10 +10,9 @@ import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
+
+import java.util.List;
 
 @RestController
 @RequestMapping("/usuario")
@@ -64,4 +64,45 @@ public class UsuarioController {
                 .status(HttpStatus.CREATED)
                 .body(resposta);
     }
+
+    @GetMapping("/all-user")
+    @Operation(
+            summary = "Listar todos os usuários",
+            description = "Listar todos os usuários somente acesso ADMIN"
+    )
+    public ResponseEntity<ApiResponse<List<UsuarioResponse>>> todosUsuarios(){
+        List<UsuarioResponse> usuarios = usuarioService.listarTodosOsUsuarios();
+
+        ApiResponse<List<UsuarioResponse>> resposta = ApiResponse.sucesso(
+                "Lista de usuários ADMIN e USER",
+                usuarios
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(resposta);
+    }
+
+    @GetMapping("/find-user")
+    @Operation(
+            summary = "Listar todos os usuários",
+            description = "Listar todos os usuários somente acesso ADMIN"
+    )
+    public ResponseEntity<ApiResponse<UsuarioResponse>> listarUsuarioEspecifico(
+            @Valid @RequestBody FindUsuarioRequest request
+            )
+    {
+        UsuarioResponse dados = usuarioService.listarUsuarioEspecifico(request);
+
+        ApiResponse<UsuarioResponse> resposta = ApiResponse.sucesso(
+                "Usuário encontrado",
+                dados
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.OK)
+                .body(resposta);
+    }
+
+
 }
