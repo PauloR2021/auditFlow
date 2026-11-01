@@ -1,6 +1,6 @@
 package com.paulo.backend.dtos;
 
-public record FindUsuario(
+public record FindUsuarioRequest(
         String usuario
 ) {
 }
