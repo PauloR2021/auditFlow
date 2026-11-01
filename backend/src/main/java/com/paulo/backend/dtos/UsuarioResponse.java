@@ -1,4 +1,12 @@
 package com.paulo.backend.dtos;
 
-public record UsuarioResponse() {
+import java.time.LocalDateTime;
+
+public record UsuarioResponse(
+        Long id,
+        String  nome,
+        String username,
+        LocalDateTime dtCriacao,
+        String acesso
+) {
 }
