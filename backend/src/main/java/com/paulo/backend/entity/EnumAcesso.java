@@ -1,6 +1,6 @@
 package com.paulo.backend.entity;
 
-public enum AcessoUsuario {
+public enum EnumAcesso {
     ADMIN,
     USER
 }
