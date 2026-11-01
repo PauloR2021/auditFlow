@@ -1,0 +1,36 @@
+#### BACKEND ####
+
+### Variáveis de ambiente ###
+/backend/.env
+/backend/.env.*
+!/backend/.env.example
+
+### Maven ###
+/backend/HELP.md
+/backend/target/
+
+### STS / Eclipse ###
+/backend/.apt_generated/
+/backend/.classpath
+/backend/.factorypath
+/backend/.project
+/backend/.settings/
+/backend/.springBeans
+/backend/.sts4-cache/
+
+### IntelliJ IDEA ###
+/backend/.idea/
+/backend/*.iws
+/backend/*.iml
+/backend/*.ipr
+
+### NetBeans ###
+/backend/nbproject/private/
+/backend/nbbuild/
+/backend/dist/
+/backend/nbdist/
+/backend/.nb-gradle/
+/backend/build/
+
+### VS Code ###
+/backend/.vscode/
