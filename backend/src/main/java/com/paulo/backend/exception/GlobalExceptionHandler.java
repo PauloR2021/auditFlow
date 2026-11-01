@@ -6,6 +6,7 @@ import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.MethodArgumentNotValidException;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 import org.springframework.web.bind.annotation.RestControllerAdvice;
+import org.springframework.web.client.HttpClientErrorException;
 
 import java.util.List;
 import java.util.Map;
@@ -13,6 +14,8 @@ import java.util.stream.Collectors;
 
 @RestControllerAdvice
 public class GlobalExceptionHandler {
+
+
     @ExceptionHandler(UsuarioJaCadastradoException.class)
     public ResponseEntity<ApiResponse<Void>> tratarUsuarioDuplicado(UsuarioJaCadastradoException exception){
         ApiResponse<Void> resposta = ApiResponse.erro(
@@ -47,6 +50,18 @@ public class GlobalExceptionHandler {
 
         return ResponseEntity
                 .status(HttpStatus.BAD_REQUEST)
+                .body(resposta);
+    }
+
+    @ExceptionHandler(UsuarioNaoCadastradoException.class)
+    public ResponseEntity<ApiResponse<Void>> tratarUsuarioDuplicado(UsuarioNaoCadastradoException exception){
+        ApiResponse<Void> resposta = ApiResponse.erro(
+                exception.getMessage(),
+                null
+        );
+
+        return ResponseEntity
+                .status(HttpStatus.CONFLICT)
                 .body(resposta);
     }
 }
