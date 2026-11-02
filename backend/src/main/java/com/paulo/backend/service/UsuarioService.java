@@ -95,11 +95,11 @@ public class UsuarioService implements UserDetailsService {
     }
 
     @Transactional(readOnly = true)
-    public UsuarioResponse listarUsuarioEspecifico(FindUsuarioRequest usuario){
+    public UsuarioResponse listarUsuarioEspecifico(String usuario){
 
-        UsuarioEntity user = usuarioRepository.findByUsuario(usuario.usuario())
+        UsuarioEntity user = usuarioRepository.findByUsuario(usuario)
                 .orElseThrow(() ->
-                        new UsuarioNaoCadastradoException(usuario.usuario())
+                        new UsuarioNaoCadastradoException(usuario)
                 );
 
         return toResponse(user);

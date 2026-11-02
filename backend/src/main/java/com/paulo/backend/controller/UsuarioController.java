@@ -89,10 +89,10 @@ public class UsuarioController {
             description = "Listar todos os usuários somente acesso ADMIN"
     )
     public ResponseEntity<ApiResponse<UsuarioResponse>> listarUsuarioEspecifico(
-            @Valid @RequestBody FindUsuarioRequest request
+            @RequestParam("usuario") String usuario
             )
     {
-        UsuarioResponse dados = usuarioService.listarUsuarioEspecifico(request);
+        UsuarioResponse dados = usuarioService.listarUsuarioEspecifico(usuario);
 
         ApiResponse<UsuarioResponse> resposta = ApiResponse.sucesso(
                 "Usuário encontrado",

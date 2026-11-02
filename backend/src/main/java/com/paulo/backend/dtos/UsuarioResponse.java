@@ -5,7 +5,7 @@ import java.time.LocalDateTime;
 public record UsuarioResponse(
         Long id,
         String  nome,
-        String username,
+        String usuario,
         LocalDateTime dtCriacao,
         String acesso
 ) {
