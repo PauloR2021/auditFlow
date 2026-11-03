@@ -11,3 +11,12 @@ export function buscarUsuario(usuario) {
 
   return api(`/usuario/find-user?${parametros}`);
 }
+
+export function cadastrarUsuarioAdmin(dados) {
+  return api("/usuario/create-admin", {
+    method: "POST",
+    body: dados,
+  });
+ 
+
+}
