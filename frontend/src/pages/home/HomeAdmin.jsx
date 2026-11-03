@@ -15,6 +15,8 @@ export default function HomeAdmin() {
   const [saindo, setSaindo] = useState(false);
   const [erro, setErro] = useState("");
 
+  const [telaAdmin, setTelaAdmin] = useState(false);
+
   useEffect(() => {
     let ativo = true;
 
@@ -80,6 +82,22 @@ export default function HomeAdmin() {
     }
   }
 
+  function telaCadastrarAdmin(){
+    if(telaAdmin) return;
+
+    setTelaAdmin(true);
+    setErro("");
+    
+    try{
+      navigate("/home-criar-admin", { replace: true });
+    } catch (error) {
+      setErro(error.message || "Não foi possível acessar a tela de cadastro.");
+    } finally {
+      setTelaAdmin(false);
+    }
+    
+  }
+
   function formatarData(valor) {
     if (!valor) return "—";
 
@@ -87,6 +105,7 @@ export default function HomeAdmin() {
 
     return Number.isNaN(data.getTime()) ? "—" : data.toLocaleString("pt-BR");
   }
+  
 
   const administradores = usuarios.filter(
     (usuario) => usuario.acesso === "ADMIN",
@@ -97,6 +116,8 @@ export default function HomeAdmin() {
   ).length;
 
   const listaExibida = resultado ? [resultado] : usuarios;
+
+
 
   return (
     <main className="admin-page">
@@ -109,6 +130,15 @@ export default function HomeAdmin() {
 
             <span className="admin-identificacao">Área administrativa</span>
           </div>
+
+          <button
+            className="admin-botao-secundario"
+            type="button"
+            disabled={telaAdmin}
+            onClick={telaCadastrarAdmin}
+          >
+           {telaAdmin ? "Acessando..." : "Cadastrar administrador"}
+          </button>
 
           <button
             className="admin-botao-secundario"
