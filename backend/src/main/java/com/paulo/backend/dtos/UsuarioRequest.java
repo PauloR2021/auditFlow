@@ -1,6 +1,5 @@
 package com.paulo.backend.dtos;
 
-import com.paulo.backend.entity.EnumAcesso;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Pattern;
 import jakarta.validation.constraints.Size;
@@ -20,15 +19,7 @@ public record UsuarioRequest(
                 regexp = "^[a-zA-Z0-9._-]+$",
                 message = "O usuário deve conter apenas letras, números, ponto, hífen ou sublinhado"
         )
-        String usuario,
-
-        @NotBlank(message = "A senha é obrigatória")
-        @Size(
-                min = 8,
-                max = 64,
-                message = "A senha deve ter entre 8 e 64 caracteres"
-        )
-        String senha
+        String usuario
 
 ) {
 }

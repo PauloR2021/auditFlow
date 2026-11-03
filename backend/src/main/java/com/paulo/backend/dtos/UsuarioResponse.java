@@ -7,6 +7,8 @@ public record UsuarioResponse(
         String  nome,
         String usuario,
         LocalDateTime dtCriacao,
-        String acesso
+        String acesso,
+        Boolean primeiroAcesso,
+        Boolean trocouSenha
 ) {
 }
