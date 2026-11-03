@@ -57,7 +57,10 @@ export async function api(
 
   if (!resposta.ok) {
     const erro = new Error(
-      dados?.mensagem || `Erro na requisição: ${resposta.status}`
+      dados?.mensagem ||
+      dados?.message ||
+      `Erro na requisição: ${resposta.status}`
+
     );
 
     erro.status = resposta.status;
@@ -85,6 +88,16 @@ export async function fazerLogin(usuario, senha) {
 
   const resposta = await api("/auth/me");
   return resposta.dados;
+}
+
+export async function primeiroAcesso(dados) {
+  await atualizarCsrf();
+
+  await api("/auth/primeiro-acesso", {
+    method: "PATCH",
+    body: (dados),
+  });
+
 }
 
 export async function fazerLogout() {
