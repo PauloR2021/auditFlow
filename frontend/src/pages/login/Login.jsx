@@ -37,6 +37,16 @@ export default function Login({ onLogin }) {
 
       onLogin?.({ usuario: usuarioLogado });
 
+      //Verifica primeiro a obrigatoridade de trocar a senha.
+      if (
+        usuarioLogado?.primeiroAcesso === true &&
+        usuarioLogado?.trocouSenha === false
+      ) {
+        navigate("/primeiro-acesso", { replace: true });
+        return;
+      }
+
+      // Só encaminha à home se não houver troca pendente.
       if (usuarioLogado?.acesso === "ADMIN") {
         navigate("/home-admin", { replace: true });
       }
