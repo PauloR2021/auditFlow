@@ -36,6 +36,12 @@ public class UsuarioEntity {
     @Column(name = "acesso", length = 30, nullable = false)
     private EnumAcesso acesso;
 
+    @Column(name = "primeiro_acesso", nullable = false)
+    private Boolean primeiroAcesso = true;
+
+    @Column(name = "trocou_senha", nullable = false)
+    private Boolean trocouSenha = false;
+
 
 
 
