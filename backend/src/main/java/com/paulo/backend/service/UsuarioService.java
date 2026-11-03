@@ -1,6 +1,7 @@
 package com.paulo.backend.service;
 
 import com.paulo.backend.dtos.FindUsuarioRequest;
+import com.paulo.backend.dtos.TrocarSenhaRequest;
 import com.paulo.backend.dtos.UsuarioRequest;
 import com.paulo.backend.dtos.UsuarioResponse;
 import com.paulo.backend.entity.EnumAcesso;
@@ -8,6 +9,7 @@ import com.paulo.backend.entity.UsuarioEntity;
 import com.paulo.backend.exception.UsuarioJaCadastradoException;
 import com.paulo.backend.exception.UsuarioNaoCadastradoException;
 import com.paulo.backend.repository.UsuarioRepository;
+import org.springframework.http.HttpStatus;
 import org.springframework.transaction.annotation.Transactional;
 import org.springframework.security.core.userdetails.User;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -15,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
+import org.springframework.web.server.ResponseStatusException;
 
 import java.util.List;
 
@@ -61,7 +64,7 @@ public class UsuarioService implements UserDetailsService {
         UsuarioEntity novoUsuario  = new UsuarioEntity();
         novoUsuario.setNome(request.nome());
         novoUsuario.setUsuario(request.usuario());
-        novoUsuario.setSenhaHash(passwordEncoder.encode(request.senha()));
+        novoUsuario.setSenhaHash(passwordEncoder.encode("123456789"));
         novoUsuario.setAcesso(EnumAcesso.ADMIN);
 
         UsuarioEntity usuarioSalvo = usuarioRepository.save(novoUsuario);
@@ -78,7 +81,7 @@ public class UsuarioService implements UserDetailsService {
         UsuarioEntity novoUsuario  = new UsuarioEntity();
         novoUsuario.setNome(request.nome());
         novoUsuario.setUsuario(request.usuario());
-        novoUsuario.setSenhaHash(passwordEncoder.encode(request.senha()));
+        novoUsuario.setSenhaHash(passwordEncoder.encode("123456789"));
         novoUsuario.setAcesso(EnumAcesso.USER);
 
         UsuarioEntity usuarioSalvo = usuarioRepository.save(novoUsuario);
@@ -106,6 +109,48 @@ public class UsuarioService implements UserDetailsService {
 
     }
 
+    @Transactional
+    public void trocarSenhaPrimeiroAcesso(
+            String usuario,
+            TrocarSenhaRequest request
+    ) {
+        UsuarioEntity user = usuarioRepository.findByUsuario(usuario)
+                .orElseThrow( () -> new ResponseStatusException(
+                        HttpStatus.NOT_FOUND,
+                        "Usuário não encontrado"
+                ));
+
+        if (!Boolean.TRUE.equals(user.getPrimeiroAcesso())
+                || !Boolean.FALSE.equals(user.getTrocouSenha())) {
+            throw new ResponseStatusException(
+                    HttpStatus.CONFLICT,
+                    "A troca de senha de primeiro acesso não está pendente"
+            );
+        }
+        if (!request.senha().equals(request.confirmarSenha())) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "As senhas não coincidem"
+            );
+        }
+
+        if (passwordEncoder.matches(
+                request.senha(),
+                user.getSenhaHash()
+        )) {
+            throw new ResponseStatusException(
+                    HttpStatus.BAD_REQUEST,
+                    "A nova senha deve ser diferente da senha atual"
+            );
+        }
+
+        user.setSenhaHash(passwordEncoder.encode(request.senha()));
+        user.setPrimeiroAcesso(false);
+        user.setTrocouSenha(true);
+
+        usuarioRepository.save(user);
+    }
+
 
 
     private UsuarioResponse toResponse(UsuarioEntity usuario){
@@ -114,7 +159,9 @@ public class UsuarioService implements UserDetailsService {
                 usuario.getNome(),
                 usuario.getUsuario(),
                 usuario.getDtCriacao(),
-                usuario.getAcesso().toString()
+                usuario.getAcesso().toString(),
+                usuario.getPrimeiroAcesso(),
+                usuario.getTrocouSenha()
         );
     }
 
