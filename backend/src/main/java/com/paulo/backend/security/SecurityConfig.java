@@ -35,11 +35,11 @@ public class SecurityConfig {
                 .csrf(Customizer.withDefaults())
                 /*.csrf(csrf -> csrf
                         .ignoringRequestMatchers(
-                                "/usuario/user",
-                                "/usuario/admin"
+                                "/usuario/create-user",
+                                "/usuario/create-admin"
                         )
-                ) Libera a rota de cadastro apenas para teste
-                */
+                ) //Libera a rota de cadastro apenas para teste*/
+
                 // Autenticação por sessão
                 .sessionManagement(session -> session
                         .sessionCreationPolicy(
@@ -72,9 +72,14 @@ public class SecurityConfig {
                         ).permitAll()
 
                         .requestMatchers(
+                                HttpMethod.PATCH,
+                                "/auth/primeiro-acesso"
+                        ).authenticated()
+
+                        .requestMatchers(
                                 HttpMethod.POST,
-                                "/usuario/user",
-                                "/usuario/admin"
+                                "/usuario/create-user",
+                                "/usuario/create-admin"
                         ).hasAuthority("ADMIN")
 
                         .requestMatchers(
