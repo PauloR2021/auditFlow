@@ -2,16 +2,18 @@ package com.paulo.backend.controller;
 
 
 import com.paulo.backend.dtos.ApiResponse;
+import com.paulo.backend.dtos.TrocarSenhaRequest;
 import com.paulo.backend.dtos.UsuarioResponse;
 import com.paulo.backend.entity.UsuarioEntity;
 import com.paulo.backend.repository.UsuarioRepository;
+import com.paulo.backend.service.UsuarioService;
+import io.swagger.v3.oas.annotations.Operation;
+import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.web.csrf.CsrfToken;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
+import org.springframework.web.bind.annotation.*;
 import org.springframework.web.server.ResponseStatusException;
 
 /**
@@ -92,10 +94,12 @@ import org.springframework.web.server.ResponseStatusException;
 public class AuthController {
 
     private final UsuarioRepository usuarioRepository;
+    private final UsuarioService usuarioService;
 
-    public AuthController(UsuarioRepository usuarioRepository)
+    public AuthController(UsuarioRepository usuarioRepository, UsuarioService usuarioService)
     {
         this.usuarioRepository = usuarioRepository;
+        this.usuarioService = usuarioService;
     }
 
     @GetMapping("/csrf")
@@ -104,6 +108,28 @@ public class AuthController {
                 csrfToken.getHeaderName(),
                 csrfToken.getToken()
         );
+    }
+
+    @PatchMapping("/primeiro-acesso")
+    @Operation(
+            summary = "Trocar senha no primeiro acesso",
+            description = "Altera a senha do usuário da sessão autenticada."
+    )
+    public ResponseEntity<ApiResponse<Void>> trocarSenhaPrimeiroAcesso(
+            Authentication authentication,
+            @Valid @RequestBody TrocarSenhaRequest request
+    ) {
+        usuarioService.trocarSenhaPrimeiroAcesso(
+                authentication.getName(),
+                request
+        );
+
+        ApiResponse<Void> resposta = ApiResponse.sucesso(
+                "Senha alterada com sucesso",
+                null
+        );
+
+        return ResponseEntity.ok(resposta);
     }
 
     @GetMapping("/me")
@@ -122,7 +148,9 @@ public class AuthController {
                 usuario.getNome(),
                 usuario.getUsuario(),
                 usuario.getDtCriacao(),
-                usuario.getAcesso().toString()
+                usuario.getAcesso().toString(),
+                usuario.getPrimeiroAcesso(),
+                usuario.getTrocouSenha()
         );
 
         return ResponseEntity.ok(
