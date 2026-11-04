@@ -4,7 +4,8 @@ import RotaProtegida from "./src/components/RotaProtegida.jsx";
 import Login from "./src/pages/login/Login.jsx";
 import PrimeiroAcesso from "./src/pages/login/PrimeiroAcesso.jsx";
 import HomeAdmin from "./src/pages/home/HomeAdmin.jsx";
-import CriarAdmin from "./src/pages/home/CriarAdmin.jsx";
+import CriarAdmin from "./src/pages/users/CriarAdmin.jsx";
+import CriarUser from "./src/pages/users/CriarUser.jsx";
 
 function App() {
   return (
@@ -12,7 +13,7 @@ function App() {
       <Routes>
         <Route path="/login" element={<Login />} />
         <Route
-          path="/primeiro-acesso"
+          path="/auth/primeiro-acesso"
           element={
             <RotaProtegida>
               <PrimeiroAcesso />
@@ -28,15 +29,25 @@ function App() {
             </RotaProtegida>
           }
         />
+        
+        <Route
+          path="/users/create-user"
+          element={
+            <RotaProtegida acesso="ADMIN">
+              <CriarUser />
+            </RotaProtegida>
+          }
+        />
 
         <Route
-          path="/home-criar-admin"
+          path="/users/create-admin"
           element={
             <RotaProtegida acesso="ADMIN">
               <CriarAdmin />
             </RotaProtegida>
           }
         />
+
         <Route path="*" element={<Navigate to="/login" />} />
       </Routes>
     </BrowserRouter>
