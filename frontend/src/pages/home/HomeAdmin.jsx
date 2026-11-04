@@ -1,7 +1,7 @@
 import { useEffect, useState } from "react";
 import { useNavigate } from "react-router-dom";
-import { fazerLogout } from "../../service/api.js";
-import { listarUsuarios, buscarUsuario} from "../../service/usuarioService.js";
+import { fazerLogout, consultarMeusDados } from "../../service/api.js";
+import { listarUsuarios, buscarUsuario } from "../../service/usuarioService.js";
 import "./HomeAdmin.css";
 
 export default function HomeAdmin() {
@@ -15,7 +15,9 @@ export default function HomeAdmin() {
   const [saindo, setSaindo] = useState(false);
   const [erro, setErro] = useState("");
 
+  const [telaUser, setTelaUser] = useState(false);
   const [telaAdmin, setTelaAdmin] = useState(false);
+  const [meusDados, setMeusDados] = useState(false);
 
   useEffect(() => {
     let ativo = true;
@@ -82,20 +84,65 @@ export default function HomeAdmin() {
     }
   }
 
-  function telaCadastrarAdmin(){
-    if(telaAdmin) return;
+  async function telaCadastroUser() {
+    if (telaUser) return;
+
+    setTelaUser(true);
+    setErro("");
+
+    try {
+      navigate("/users/create-user", { replace: true });
+    } catch (error) {
+      setResultado("");
+      setErro(
+        error instanceof TypeError
+          ? "Não foi possível conectar à API. Verifique sua conexão."
+          : error.message || "Ocorreu um erro. Tente novamente.",
+      );
+    } finally {
+      setTelaUser(false);
+    }
+  }
+
+  async function telaCadastrarAdmin() {
+    if (telaAdmin) return;
 
     setTelaAdmin(true);
     setErro("");
-    
-    try{
-      navigate("/home-criar-admin", { replace: true });
+
+    try {
+      navigate("/users/create-admin", { replace: true });
     } catch (error) {
-      setErro(error.message || "Não foi possível acessar a tela de cadastro.");
+      setResultado("");
+      setErro(
+        error instanceof TypeError
+          ? "Não foi possível conectar à API. Verifique sua conexão."
+          : error.message || "Ocorreu um erro. Tente novamente.",
+      );
     } finally {
       setTelaAdmin(false);
     }
-    
+  }
+
+  async function telaMeusDados() {
+    if (meusDados) return;
+
+    setMeusDados(true);
+    setErro("");
+
+    try {
+      const resposta = await consultarMeusDados();
+      console.log(resposta);
+    } catch (error) {
+      setResultado("");
+      setErro(
+        error instanceof TypeError
+          ? "Não foi possível conectar à API. Verifique sua conexão."
+          : error.message || "Ocorreu um erro. Tente novamente.",
+      );
+    } finally {
+      setMeusDados(false);
+    }
   }
 
   function formatarData(valor) {
@@ -105,7 +152,6 @@ export default function HomeAdmin() {
 
     return Number.isNaN(data.getTime()) ? "—" : data.toLocaleString("pt-BR");
   }
-  
 
   const administradores = usuarios.filter(
     (usuario) => usuario.acesso === "ADMIN",
@@ -116,8 +162,6 @@ export default function HomeAdmin() {
   ).length;
 
   const listaExibida = resultado ? [resultado] : usuarios;
-
-
 
   return (
     <main className="admin-page">
@@ -134,10 +178,28 @@ export default function HomeAdmin() {
           <button
             className="admin-botao-secundario"
             type="button"
+            disabled={telaUser}
+            onClick={telaCadastroUser}
+          >
+            {telaAdmin ? "Acessando..." : "Cadastrar usuário"}
+          </button>
+
+          <button
+            className="admin-botao-secundario"
+            type="button"
             disabled={telaAdmin}
             onClick={telaCadastrarAdmin}
           >
-           {telaAdmin ? "Acessando..." : "Cadastrar administrador"}
+            {telaAdmin ? "Acessando..." : "Cadastrar administrador"}
+          </button>
+
+          <button
+            className="admin-botao-secundario"
+            type="button"
+            disabled={meusDados}
+            onClick={telaMeusDados}
+          >
+            {telaAdmin ? "Acessando..." : "Meus dados"}
           </button>
 
           <button
