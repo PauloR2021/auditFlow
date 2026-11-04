@@ -42,7 +42,7 @@ export default function Login({ onLogin }) {
         usuarioLogado?.primeiroAcesso === true &&
         usuarioLogado?.trocouSenha === false
       ) {
-        navigate("/primeiro-acesso", { replace: true });
+        navigate("/auth/primeiro-acesso", { replace: true });
         return;
       }
 
