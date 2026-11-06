@@ -109,3 +109,8 @@ export async function fazerLogout() {
 
   csrf = null;
 }
+
+export async function consultarMeusDados() {
+  return api("/auth/me");
+
+}

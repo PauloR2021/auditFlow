@@ -1,7 +1,7 @@
 import { api } from "./api.js";
 
 export async function listarUsuarios() {
-    return api("/usuario/all-user");
+  return api("/usuario/all-user");
 }
 
 export function buscarUsuario(usuario) {
@@ -17,6 +17,14 @@ export function cadastrarUsuarioAdmin(dados) {
     method: "POST",
     body: dados,
   });
- 
 
 }
+
+export function cadastrarUsuarioUser(dados) {
+  return api("/usuario/create-user", {
+    method: "POST",
+    body: dados,
+  });
+
+}
+
