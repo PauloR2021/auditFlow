@@ -436,6 +436,36 @@
   animation: login-girar 0.7s linear infinite;
 }
 
+.container-card {
+  display: flex;
+  justify-content: center;
+  background-color: #05212c;
+  align-items: center;
+  min-height: 50vh;
+  border-radius: 20px;
+}
+
+.card {
+  margin: 0;
+  font-size: 14px;
+  font-weight: bold;
+  text-align: center;
+  color: #fff;
+
+}
+.card p {
+  margin: 0;
+  color: #fff;
+  font-weight: bold;
+  font-size: 18px;
+  padding-bottom: 30px;
+}
+
+.card p span {
+  font-weight: normal;
+  color: #00d4ff;
+
+}
 .admin-footer {
   margin-top: 28px;
   padding-top: 22px;
