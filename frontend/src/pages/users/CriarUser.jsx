@@ -133,7 +133,7 @@ export default function CriarUser() {
         </header>
         <section className="admin-introducao">
           <p className="admin-eyebrow">PAINEL DE CADASTRO DE USUÁRIOS</p>
-          <p>Cadastre novos usuários para utilizar o</p>
+          <p>Cadastre novos usuários para utilizar o sistema</p>
         </section>
 
         <form className="admin-formulario" onSubmit={cadastrar} aria-busy={carregando}>
