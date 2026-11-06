@@ -1,8 +1,8 @@
 import { useEffect, useState } from "react";
-import { useNavigate } from "react-router-dom";
+import { replace, useNavigate } from "react-router-dom";
 import { fazerLogout, consultarMeusDados } from "../../service/api.js";
 import { listarUsuarios, buscarUsuario } from "../../service/usuarioService.js";
-import "./HomeAdmin.css";
+import "./styles.css";
 
 export default function HomeAdmin() {
   const navigate = useNavigate();
@@ -131,8 +131,7 @@ export default function HomeAdmin() {
     setErro("");
 
     try {
-      const resposta = await consultarMeusDados();
-      console.log(resposta);
+      navigate("/users/me", {replace: true})
     } catch (error) {
       setResultado("");
       setErro(
@@ -164,19 +163,19 @@ export default function HomeAdmin() {
   const listaExibida = resultado ? [resultado] : usuarios;
 
   return (
-    <main className="admin-page">
-      <div className="admin-container">
-        <header className="admin-header">
+    <main className="page">
+      <div className="container">
+        <header className="header">
           <div>
-            <p className="admin-marca">
+            <p className="marca">
               Audit<span>Flow</span>
             </p>
 
-            <span className="admin-identificacao">Área administrativa</span>
+            <span className="identificacao">Área administrativa</span>
           </div>
 
           <button
-            className="admin-botao-secundario"
+            className="botao-secundario"
             type="button"
             disabled={telaUser}
             onClick={telaCadastroUser}
@@ -185,7 +184,7 @@ export default function HomeAdmin() {
           </button>
 
           <button
-            className="admin-botao-secundario"
+            className="botao-secundario"
             type="button"
             disabled={telaAdmin}
             onClick={telaCadastrarAdmin}
@@ -194,7 +193,7 @@ export default function HomeAdmin() {
           </button>
 
           <button
-            className="admin-botao-secundario"
+            className="botao-secundario"
             type="button"
             disabled={meusDados}
             onClick={telaMeusDados}
@@ -203,7 +202,7 @@ export default function HomeAdmin() {
           </button>
 
           <button
-            className="admin-botao-secundario"
+            className="botao-secundario"
             type="button"
             disabled={saindo}
             onClick={sair}
@@ -212,52 +211,52 @@ export default function HomeAdmin() {
           </button>
         </header>
 
-        <section className="admin-introducao">
-          <p className="admin-eyebrow">PAINEL DE CONTROLE</p>
+        <section className="introducao">
+          <p className="eyebrow">PAINEL DE CONTROLE</p>
           <h1>Visão geral</h1>
           <p>Consulte os usuários e acompanhe os acessos ao sistema.</p>
         </section>
 
         {erro && (
-          <p className="admin-erro" role="alert">
+          <p className="erro" role="alert">
             {erro}
           </p>
         )}
 
-        <section className="admin-indicadores" aria-label="Indicadores">
-          <article className="admin-indicador">
+        <section className="indicadores" aria-label="Indicadores">
+          <article className="indicador">
             <span>Total de usuários</span>
             <strong>{carregando ? "—" : usuarios.length}</strong>
             <small>Contas cadastradas</small>
           </article>
 
-          <article className="admin-indicador">
+          <article className="indicador">
             <span>Administradores</span>
             <strong>{carregando ? "—" : administradores}</strong>
             <small>Perfil ADMIN</small>
           </article>
 
-          <article className="admin-indicador">
+          <article className="indicador">
             <span>Usuários comuns</span>
             <strong>{carregando ? "—" : usuariosComuns}</strong>
             <small>Perfil USER</small>
           </article>
         </section>
 
-        <section className="admin-painel">
-          <div className="admin-titulo-painel">
+        <section className="painel">
+          <div className="titulo-painel">
             <div>
               <h2>Usuários cadastrados</h2>
               <p>Busque uma conta pelo login exato.</p>
             </div>
           </div>
 
-          <form className="admin-busca" onSubmit={pesquisar}>
-            <label className="admin-label-busca" htmlFor="busca-usuario">
+          <form className="busca" onSubmit={pesquisar}>
+            <label className="label-busca" htmlFor="busca-usuario">
               Login do usuário
             </label>
 
-            <div className="admin-busca-controles">
+            <div className="busca-controles">
               <input
                 id="busca-usuario"
                 type="search"
@@ -270,7 +269,7 @@ export default function HomeAdmin() {
               />
 
               <button
-                className="admin-botao"
+                className="botao"
                 type="submit"
                 disabled={buscando || carregando}
               >
@@ -279,7 +278,7 @@ export default function HomeAdmin() {
 
               {resultado && (
                 <button
-                  className="admin-botao-secundario"
+                  className="botao-secundario"
                   type="button"
                   onClick={() => {
                     setBusca("");
@@ -294,15 +293,15 @@ export default function HomeAdmin() {
           </form>
 
           {carregando ? (
-            <p className="admin-estado" role="status">
+            <p className="estado" role="status">
               Carregando usuários...
             </p>
           ) : listaExibida.length === 0 ? (
-            <p className="admin-estado">Nenhum usuário para exibir.</p>
+            <p className="estado">Nenhum usuário para exibir.</p>
           ) : (
-            <div className="admin-tabela-container">
-              <table className="admin-tabela">
-                <caption className="admin-somente-leitor">
+            <div className="tabela-container">
+              <table className="tabela">
+                <caption className="somente-leitor">
                   Lista de usuários do sistema
                 </caption>
 
@@ -324,8 +323,8 @@ export default function HomeAdmin() {
                         <span
                           className={
                             usuario.acesso === "ADMIN"
-                              ? "admin-perfil admin-perfil-administrador"
-                              : "admin-perfil"
+                              ? "perfil perfil-administrador"
+                              : "perfil"
                           }
                         >
                           {usuario.acesso}
@@ -339,6 +338,9 @@ export default function HomeAdmin() {
             </div>
           )}
         </section>
+        <footer className="footer">
+          Gestão de auditorias com clareza e controle.
+        </footer>
       </div>
     </main>
   );
