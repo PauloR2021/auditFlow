@@ -1,9 +1,9 @@
-.admin-page,
-.admin-page * {
+.page,
+.page * {
   box-sizing: border-box;
 }
 
-.admin-page {
+.page {
   min-height: 100vh;
   min-height: 100dvh;
   padding: 0 24px 48px;
@@ -21,13 +21,13 @@
   color-scheme: dark;
 }
 
-.admin-container {
+.container {
   width: 100%;
   max-width: 1200px;
   margin: 0 auto;
 }
 
-.admin-header {
+.header {
   display: flex;
   align-items: center;
   justify-content: space-between;
@@ -37,27 +37,27 @@
   border-bottom: 1px solid #26364d;
 }
 
-.admin-marca {
+.marca {
   margin: 0 0 5px;
   font-size: 27px;
   font-weight: 800;
   letter-spacing: -1px;
 }
 
-.admin-marca span {
+.marca span {
   color: #00d4ff;
 }
 
-.admin-identificacao {
+.identificacao {
   color: #94a3b8;
   font-size: 12px;
 }
 
-.admin-introducao {
+.introducao {
   padding: 36px 0 28px;
 }
 
-.admin-eyebrow {
+.eyebrow {
   margin: 0 0 10px;
   color: #00d4ff;
   font-size: 11px;
@@ -65,25 +65,25 @@
   letter-spacing: 2px;
 }
 
-.admin-introducao h1 {
+.introducao h1 {
   margin: 0 0 10px;
   font-size: 32px;
 }
 
-.admin-introducao > p:last-child {
+.introducao > p:last-child {
   margin: 0;
   color: #a5b4c8;
   line-height: 1.6;
 }
 
-.admin-indicadores {
+.indicadores {
   display: grid;
   grid-template-columns: repeat(3, minmax(0, 1fr));
   gap: 20px;
   margin-bottom: 28px;
 }
 
-.admin-indicador {
+.indicador {
   display: grid;
   gap: 12px;
   padding: 24px;
@@ -93,56 +93,56 @@
   border-radius: 16px;
 }
 
-.admin-indicador > span {
+.indicador > span {
   color: #b8c5d7;
   font-size: 14px;
 }
 
-.admin-indicador strong {
+.indicador strong {
   font-size: 36px;
   line-height: 1;
 }
 
-.admin-indicador small {
+.indicador small {
   color: #94a3b8;
 }
 
-.admin-painel {
+.painel {
   padding: 26px;
   background: #111d30;
   border: 1px solid #26364d;
   border-radius: 16px;
 }
 
-.admin-titulo-painel h2 {
+.titulo-painel h2 {
   margin: 0 0 8px;
   font-size: 20px;
 }
 
-.admin-titulo-painel p {
+.titulo-painel p {
   margin: 0;
   color: #94a3b8;
   font-size: 14px;
 }
 
-.admin-busca {
+.busca {
   margin: 24px 0;
 }
 
-.admin-label-busca {
+.label-busca {
   display: block;
   margin-bottom: 8px;
   color: #cbd5e1;
   font-size: 13px;
 }
 
-.admin-busca-controles {
+.busca-controles {
   display: flex;
   flex-wrap: wrap;
   gap: 12px;
 }
 
-.admin-busca input {
+.busca input {
   flex: 1 1 220px;
   min-width: 0;
   min-height: 44px;
@@ -157,18 +157,18 @@
   font-size: 14px;
 }
 
-.admin-busca input::placeholder {
+.busca input::placeholder {
   color: #7f91aa;
 }
 
-.admin-busca input:focus {
+.busca input:focus {
   outline: none;
   border-color: #00d4ff;
   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
 }
 
-.admin-botao,
-.admin-botao-secundario {
+.botao,
+.botao-secundario {
   min-height: 44px;
   padding: 10px 18px;
   border-radius: 8px;
@@ -179,37 +179,37 @@
   cursor: pointer;
 }
 
-.admin-botao {
+.botao {
   border: 1px solid #00d4ff;
   background: #00d4ff;
   color: #05212c;
 }
 
-.admin-botao:hover:not(:disabled) {
+.botao:hover:not(:disabled) {
   background: #67e8f9;
 }
 
-.admin-botao-secundario {
+.botao-secundario {
   border: 1px solid #3b506c;
   background: transparent;
   color: #dbe6f5;
 }
 
-.admin-botao-secundario:hover:not(:disabled) {
+.botao-secundario:hover:not(:disabled) {
   background: #1c2c43;
 }
 
-.admin-page button:disabled {
+.page button:disabled {
   opacity: 0.6;
   cursor: wait;
 }
 
-.admin-page button:focus-visible {
+.age button:focus-visible {
   outline: 2px solid #00d4ff;
   outline-offset: 4px;
 }
 
-.admin-erro {
+.erro {
   margin: 0 0 24px;
   padding: 14px 16px;
   border: 1px solid rgba(248, 113, 113, 0.3);
@@ -221,24 +221,24 @@
   line-height: 1.6;
 }
 
-.admin-estado {
+.estado {
   padding: 24px 0;
   color: #a5b4c8;
   text-align: center;
 }
 
-.admin-tabela-container {
+.tabela-container {
   overflow-x: auto;
 }
 
-.admin-tabela {
+.tabela {
   width: 100%;
   border-collapse: collapse;
   text-align: left;
   font-size: 14px;
 }
 
-.admin-tabela th {
+.tabela th {
   padding: 14px 16px;
   background: #0d1728;
   color: #a5b4c8;
@@ -246,22 +246,22 @@
   font-weight: 600;
 }
 
-.admin-tabela td {
+.tabela td {
   padding: 18px 16px;
   border-bottom: 1px solid #26364d;
   overflow-wrap: anywhere;
 }
 
-.admin-tabela td:last-child {
+.tabela td:last-child {
   min-width: 170px;
   color: #a5b4c8;
 }
 
-.admin-tabela tbody tr:hover {
+.tabela tbody tr:hover {
   background: rgba(255, 255, 255, 0.025);
 }
 
-.admin-perfil {
+.perfil {
   display: inline-block;
   padding: 5px 9px;
   border-radius: 6px;
@@ -272,12 +272,12 @@
   font-weight: 700;
 }
 
-.admin-perfil-administrador {
+.perfil-administrador {
   background: rgba(0, 212, 255, 0.12);
   color: #67e8f9;
 }
 
-.admin-somente-leitor {
+.somente-leitor {
   position: absolute;
   width: 1px;
   height: 1px;
@@ -287,30 +287,30 @@
   white-space: nowrap;
 }
 
-.admin-formulario {
+.formulario {
   display: grid;
   gap: 20px;
   margin-top: 30px;
 }
 
-.admin-formulario-campo{
+.formulario-campo{
   display: grid;
   gap: 9px;
 }
 
-.admin-formulario-campo label {
+.formulario-campo label {
   color: #e2e8f0;
   font-size: 14px;
   font-weight: 600;
 }
 
-.admin-formulario-campo label {
+.formulario-campo label {
   color: #e2e8f0;
   font-size: 14px;
   font-weight: 600;
 }
 
-.admin-formulario-campo input {
+.formulario-campo input {
   width: 100%;
   min-width: 0;
   min-height: 50px;
@@ -329,25 +329,25 @@
     box-shadow 0.2s;
 }
 
-.admin-formulario-campo input::placeholder {
+.formulario-campo input::placeholder {
   color: #7f91aa;
 }
 
-.admin-formulario-campo input:focus {
+.formulario-campo input:focus {
   outline: none;
   border-color: #00d4ff;
   box-shadow: 0 0 0 3px rgba(0, 212, 255, 0.12);
 }
 
-.admin-formulario-campo-senha{
+.formulario-campo-senha{
   position: relative;
 }
 
-.admin-formulario-campo-senha input {
+.formulario-campo-senha input {
   padding-right: 90px;
 }
 
-.admin-mostrar-senha {
+.mostrar-senha {
   position: absolute;
   top: 50%;
   right: 8px;
@@ -366,12 +366,12 @@
   cursor: pointer;
 }
 
-.admin-mostrar-senha:hover:not(:disabled) {
+.mostrar-senha:hover:not(:disabled) {
   background: rgba(0, 212, 255, 0.08);
 }
 
 
-.admin-aviso {
+.aviso {
   margin: 0;
   padding: 12px 14px;
   border: 1px solid;
@@ -381,19 +381,19 @@
   line-height: 1.6;
 }
 
-.admin-erro {
+.erro {
   color: #fecaca;
   border-color: rgba(248, 113, 113, 0.3);
   background: rgba(239, 68, 68, 0.1);
 }
 
-.admin-sucesso {
+.sucesso {
   color: #bbf7d0;
   border-color: rgba(74, 222, 128, 0.3);
   background: rgba(34, 197, 94, 0.1);
 }
 
-.admin-cadastrar {
+.cadastrar {
   display: flex;
   align-items: center;
   justify-content: center;
@@ -417,17 +417,17 @@
     transform 0.2s;
 }
 
-.admin-cadastrar:hover:not(:disabled) {
+.cadastrar:hover:not(:disabled) {
   background: #67e8f9;
   transform: translateY(-1px);
 }
 
-.admin-cadastrar:disabled {
+.cadastrar:disabled {
   opacity: 0.65;
   cursor: wait;
 }
 
-.admin-spinner {
+.spinner {
   width: 17px;
   height: 17px;
   border: 2px solid rgba(5, 33, 44, 0.25);
@@ -436,7 +436,7 @@
   animation: login-girar 0.7s linear infinite;
 }
 
-.admin-footer {
+.footer {
   margin-top: 28px;
   padding-top: 22px;
   border-top: 1px solid #26364d;
@@ -450,24 +450,24 @@
 
 
 @media (max-width: 640px) {
-  .admin-page {
+  .page {
     padding: 0 16px 32px;
   }
 
-  .admin-indicadores {
+  .indicadores {
     grid-template-columns: 1fr;
     gap: 12px;
   }
 
-  .admin-indicador {
+  .indicador {
     padding: 20px;
   }
 
-  .admin-painel {
+  .painel {
     padding: 18px;
   }
 
-  .admin-introducao h1 {
+  .introducao h1 {
     font-size: 28px;
   }
 }
