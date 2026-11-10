@@ -1,6 +1,6 @@
 package com.paulo.backend.security;
 
-import com.paulo.backend.dtos.ApiResponse;
+import com.paulo.backend.dtos.Api.ApiResponse;
 import jakarta.servlet.http.HttpServletResponse;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -89,6 +89,45 @@ public class SecurityConfig {
 
                         ).hasAuthority("ADMIN")
 
+                        .requestMatchers(
+                                HttpMethod.POST,
+                                "/apontamento/create"
+
+                        ).hasAuthority("ADMIN")
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/apontamento/all-apontamentos",
+                                "/apontamento/id-responsavel/{id}"
+
+                        ).hasAuthority("ADMIN")
+
+                        .requestMatchers(
+                                HttpMethod.GET,
+                                "/apontamento/id-responsavel/{id}"
+
+                        ).hasAuthority("USER")
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/apontamento/{id}/concluido",
+                                "/apontamento/{id}/finalizado",
+                                "/apontamento/{id}/pendente",
+                                "/apontamento/{id}/deletar-responsavel"
+                        ).hasAuthority("ADMIN")
+
+
+                        .requestMatchers(
+                                HttpMethod.PUT,
+                                "/apontamento/{id}/concluido",
+                                "/apontamento/{id}/finalizado",
+                                "/apontamento/{id}/pendente",
+                                "/apontamento/{id}/deletar-responsavel"
+                        ).hasAuthority("USER")
+
+                        .requestMatchers(
+                                HttpMethod.DELETE,
+                                "/apontamento/deletar/{id}"
+                        ).hasAuthority("ADMIN")
 
 
                         .requestMatchers(
