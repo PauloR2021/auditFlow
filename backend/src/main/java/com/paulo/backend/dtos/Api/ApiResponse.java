@@ -1,4 +1,4 @@
-package com.paulo.backend.dtos;
+package com.paulo.backend.dtos.Api;
 
 import java.time.Instant;
 

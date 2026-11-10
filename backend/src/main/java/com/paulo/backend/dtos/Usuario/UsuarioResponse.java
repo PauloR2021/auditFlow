@@ -1,4 +1,4 @@
-package com.paulo.backend.dtos;
+package com.paulo.backend.dtos.Usuario;
 
 import java.time.LocalDateTime;
 

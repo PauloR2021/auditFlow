@@ -1,4 +1,4 @@
-package com.paulo.backend.dtos;
+package com.paulo.backend.dtos.Login;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.Size;
