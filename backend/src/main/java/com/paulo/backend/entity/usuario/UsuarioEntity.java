@@ -1,4 +1,4 @@
-package com.paulo.backend.entity;
+package com.paulo.backend.entity.usuario;
 
 import jakarta.persistence.*;
 import lombok.Getter;
