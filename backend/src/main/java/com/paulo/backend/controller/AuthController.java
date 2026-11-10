@@ -1,10 +1,10 @@
 package com.paulo.backend.controller;
 
 
-import com.paulo.backend.dtos.ApiResponse;
-import com.paulo.backend.dtos.TrocarSenhaRequest;
-import com.paulo.backend.dtos.UsuarioResponse;
-import com.paulo.backend.entity.UsuarioEntity;
+import com.paulo.backend.dtos.Api.ApiResponse;
+import com.paulo.backend.dtos.Login.TrocarSenhaRequest;
+import com.paulo.backend.dtos.Usuario.UsuarioResponse;
+import com.paulo.backend.entity.usuario.UsuarioEntity;
 import com.paulo.backend.repository.UsuarioRepository;
 import com.paulo.backend.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;

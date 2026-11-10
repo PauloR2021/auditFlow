@@ -1,13 +1,14 @@
 package com.paulo.backend.controller;
 
-import com.paulo.backend.dtos.*;
+import com.paulo.backend.dtos.Api.ApiResponse;
+import com.paulo.backend.dtos.Usuario.UsuarioRequest;
+import com.paulo.backend.dtos.Usuario.UsuarioResponse;
 import com.paulo.backend.service.UsuarioService;
 import io.swagger.v3.oas.annotations.Operation;
 import io.swagger.v3.oas.annotations.tags.Tag;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.core.Authentication;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
