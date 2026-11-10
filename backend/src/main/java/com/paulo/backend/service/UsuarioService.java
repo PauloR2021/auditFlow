@@ -1,11 +1,10 @@
 package com.paulo.backend.service;
 
-import com.paulo.backend.dtos.FindUsuarioRequest;
-import com.paulo.backend.dtos.TrocarSenhaRequest;
-import com.paulo.backend.dtos.UsuarioRequest;
-import com.paulo.backend.dtos.UsuarioResponse;
-import com.paulo.backend.entity.EnumAcesso;
-import com.paulo.backend.entity.UsuarioEntity;
+import com.paulo.backend.dtos.Login.TrocarSenhaRequest;
+import com.paulo.backend.dtos.Usuario.UsuarioRequest;
+import com.paulo.backend.dtos.Usuario.UsuarioResponse;
+import com.paulo.backend.entity.usuario.EnumAcesso;
+import com.paulo.backend.entity.usuario.UsuarioEntity;
 import com.paulo.backend.exception.UsuarioJaCadastradoException;
 import com.paulo.backend.exception.UsuarioNaoCadastradoException;
 import com.paulo.backend.repository.UsuarioRepository;
